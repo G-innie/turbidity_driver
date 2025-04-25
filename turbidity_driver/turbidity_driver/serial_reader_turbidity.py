@@ -8,7 +8,7 @@ def main():
     baudrate = 19200
 
     rclpy.init()
-    node = rclpy.create_node('serial_reader_turb')
+    node = rclpy.create_node('serial_reader_turbidity')
     rate = node.create_rate(10)  # 10 Hz
     
     # Create a publisher to publish the data
