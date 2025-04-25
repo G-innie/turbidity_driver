@@ -26,15 +26,14 @@ class TurbidityDecoder(Node):
             return
         turb_msg = Turbidity()
         turb_msg.time = self.get_clock().now().to_msg()
-        turb_msg.time_turb = msg[0]
-        turb_msg.nmea_header = msg[1]
-        turb_msg.instrument_address = int(msg[2])
-        turb_msg.parameter_id = int(msg[3])
-        turb_msg.val1 = float(msg[4])
-        turb_msg.val1_sd = float(msg[5]) if msg[5] != '' else 0
-        turb_msg.val1_unit = msg[6]
-        turb_msg.val2 = float(msg[7])
-        turb_msg.val2_sd = float(msg[8]) if msg[8] != '' else 0
+        turb_msg.nmea_header = msg[0]
+        turb_msg.instrument_address = int(msg[1])
+        turb_msg.parameter_id = int(msg[2])
+        turb_msg.val1 = float(msg[3])
+        turb_msg.val1_sd = float(msg[4]) if msg[4] else 0.0
+        turb_msg.val1_unit = msg[5]
+        turb_msg.val2 = float(msg[6])
+        turb_msg.val2_sd = float(msg[7]) if msg[7] else 0.0
         turb_msg.val2_unit = msg[8]
         turb_msg.operating_mode = msg[9]
         turb_msg.check_sum = msg[10]
