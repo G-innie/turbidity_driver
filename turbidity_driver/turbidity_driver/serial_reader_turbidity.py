@@ -9,7 +9,6 @@ def main():
 
     rclpy.init()
     node = rclpy.create_node('serial_reader_turbidity')
-    rate = node.create_rate(10)  # 10 Hz
     
     # Create a publisher to publish the data
     publisher = node.create_publisher(String, '/turbidity/raw', 10)
@@ -22,7 +21,7 @@ def main():
             connected = True
         except serial.SerialException as e:
             node.get_logger().error(f"Error opening serial port: {e}")
-            rate.sleep()
+            time.sleep(0.1)
     
     while rclpy.ok() and connected:
         line = ser.readline().decode('utf-8').strip()
@@ -32,7 +31,7 @@ def main():
             msg.data = line
             publisher.publish(msg)
             node.get_logger().info(f'Publishing: {msg.data}')
-            rate.sleep()
+            time.sleep(0.1)
 
 if __name__ == '__main__':
     try:
