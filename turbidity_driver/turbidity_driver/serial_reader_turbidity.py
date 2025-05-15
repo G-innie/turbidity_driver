@@ -4,11 +4,12 @@ import serial
 import time
 
 def main():
-    port = '/dev/ttyUSB4'
-    baudrate = 19200
+    port = '/dev/ttyUSB1'
+    baudrate = 115200
 
     rclpy.init()
     node = rclpy.create_node('serial_reader_turbidity')
+    #rate = node.create_rate(10)  # 10 Hz
     
     # Create a publisher to publish the data
     publisher = node.create_publisher(String, '/turbidity/raw', 10)

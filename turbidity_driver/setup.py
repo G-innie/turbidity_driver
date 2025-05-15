@@ -21,7 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'turbidity_driver = turbidity_driver.parse_turbidity:main',
-            'serial_reader_turbidity = turibidity_driver.serial_reader_turbidity:main',
+            'serial_reader_turbidity = turbidity_driver.serial_reader_turbidity:main',
         ],
     },
 )
