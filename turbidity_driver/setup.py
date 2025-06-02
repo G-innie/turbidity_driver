@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'turbidity_driver = turbidity_driver.parse_turbidity:main'
+            'turbidity_driver = turbidity_driver.parse_turbidity:main',
         ],
     },
 )
