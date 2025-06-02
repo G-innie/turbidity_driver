@@ -7,13 +7,21 @@ from std_msgs.msg import String
 class TurbidityDecoder(Node):
     # $PVHY2,01,8,0.48705,0.012,NTU,141.65588,0.023,NTU,M1,*6D 
 
-    def __init__(self, input_topic, output_topic):
+    def __init__(self):
         super().__init__('turbidity_driver')
+
+        self.declare_parameter("input_topic", "turbidity_raw")
+        self.input_topic = self.get_parameter("input_topic").get_parameter_value().string_value
+
+        self.declare_parameter("output_topic", "turbidity_parsed")
+        self.output_topic = self.get_parameter("output_topic").get_parameter_value().string_value
+
+
         self.get_logger().info("Starting turbidity driver node to decode raw Turbidity data")
-        self.publisher = self.create_publisher(Turbidity, output_topic, 10)
+        self.publisher = self.create_publisher(Turbidity, self.output_topic, 10)
         self.subscriber = self.create_subscription(
             String,
-            input_topic,
+            self.input_topic,
             self.listener_callback,
             10
         )
@@ -43,11 +51,7 @@ class TurbidityDecoder(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    # TODO: Parse in/out topic from config file or launch file
-    node = TurbidityDecoder(
-        input_topic='/turbidity/raw',
-        output_topic='/turbidity'
-    )
+    node = TurbidityDecoder()
     rclpy.spin(node)
     rclpy.shutdown()
 
